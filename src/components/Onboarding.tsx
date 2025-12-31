@@ -57,9 +57,12 @@ export function Onboarding() {
 
   return (
     <div className="min-h-screen bg-background bg-dots-pattern flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl animate-fade-up">
+      <div className="w-full max-w-2xl">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 animate-fade-up">
+          <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary mb-4">
+            <span className="text-primary-foreground font-bold text-xl">TN</span>
+          </div>
           <h1 className="text-3xl font-bold text-foreground tracking-tight">
             Tax<span className="text-success">Narrate</span>
           </h1>
@@ -68,7 +71,7 @@ export function Onboarding() {
           </p>
         </div>
 
-        <Card variant="elevated" className="overflow-hidden">
+        <Card variant="elevated" className="overflow-hidden animate-fade-up delay-100">
           {/* Progress */}
           <div className="h-1 bg-muted">
             <div
@@ -142,7 +145,7 @@ export function Onboarding() {
           </CardContent>
         </Card>
 
-        <p className="text-center text-xs text-muted-foreground mt-6">
+        <p className="text-center text-xs text-muted-foreground mt-6 animate-fade-up delay-200">
           © 2024 Simplex Business Solutions. All rights reserved.
         </p>
       </div>
