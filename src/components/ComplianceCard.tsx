@@ -1,3 +1,4 @@
+import React from 'react';
 import { CheckCircle2, XCircle, AlertCircle, FileText, Receipt, CreditCard } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ComplianceStatus } from '@/types/tax';
@@ -8,7 +9,8 @@ interface ComplianceCardProps {
   className?: string;
 }
 
-export function ComplianceCard({ status, className }: ComplianceCardProps) {
+export const ComplianceCard = React.forwardRef<HTMLDivElement, ComplianceCardProps>(
+  function ComplianceCard({ status, className }, ref) {
   const items = [
     {
       label: 'NRS Tax ID',
@@ -31,7 +33,7 @@ export function ComplianceCard({ status, className }: ComplianceCardProps) {
   ];
 
   return (
-    <Card variant="elevated" className={className}>
+    <Card ref={ref} variant="elevated" className={className}>
       <CardHeader className="pb-4">
         <CardTitle className="flex items-center justify-between">
           Compliance Health Check
@@ -100,4 +102,4 @@ export function ComplianceCard({ status, className }: ComplianceCardProps) {
       </CardContent>
     </Card>
   );
-}
+});
