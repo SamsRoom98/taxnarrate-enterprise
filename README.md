@@ -1,73 +1,192 @@
-# Welcome to your Lovable project
+# TaxNarrate MVP
 
-## Project info
+**A Tiered Tax Education & Compliance Platform for Nigeria’s 2026 Tax Act**
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## 📌 Overview
 
-There are several ways of editing your application.
+**TaxNarrate** is a mobile-first, tiered tax education and compliance platform designed to support individuals, SMEs, and corporate entities through Nigeria’s **2026 Unified Tax Act** transition.
 
-**Use Lovable**
+The MVP demonstrates a **Lite → Secure → Secure+** progression model, allowing users to start with low-friction tax insights and upgrade to higher security and compliance features only when required.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+This approach balances:
 
-Changes made via Lovable will be committed automatically to this repo.
+* Mass adoption
+* Regulatory compliance
+* Cost efficiency
+* Enterprise-grade architecture
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🎯 Objectives of the MVP
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Demonstrate readiness for the 2026 tax regime
+* Validate UX-driven monetization through compliance needs
+* Showcase a scalable backend architecture using feature gating
+* Position Simplex Business Solutions as a compliance infrastructure provider
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🧩 Application Modes
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 1️⃣ Lite Mode (No Login)
 
-# Step 3: Install the necessary dependencies.
-npm i
+**Purpose:** Education & awareness
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+* Basic tax estimation
+* 2025 vs 2026 comparison
+* Savings preview (limited)
+* No data persistence
+* No identity verification
 
-**Edit a file directly in GitHub**
+> Designed to drive adoption and trust with zero friction.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+### 2️⃣ Secure Mode (Authenticated)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Purpose:** Compliance readiness
 
-## What technologies are used for this project?
+* User authentication (Email/OTP)
+* Identity capture (NIN / RC Number)
+* Detailed tax breakdown
+* Limited history tracking
+* Document generation (basic)
 
-This project is built with:
+> Activated when users need accuracy, saving, or compliance confidence.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+### 3️⃣ Secure+ Mode (Premium / Enterprise)
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+**Purpose:** Full compliance & audit readiness
 
-## Can I connect a custom domain to my Lovable project?
+* Multi-year tax history
+* AI-generated explanations & narration
+* Compliance audit trail
+* Advanced exports (PDF, CSV)
+* Corporate-ready reporting
 
-Yes, you can!
+> Designed for salary earners, SMEs, and corporates with regulatory exposure.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 🧭 User Types Supported
+
+| User Type             | Supported Modes              |
+| --------------------- | ---------------------------- |
+| Individual (PAYE)     | Lite, Secure, Secure+        |
+| SME                   | Secure, Secure+              |
+| Corporate (Mid/Large) | Secure+, Enterprise (Future) |
+
+Pricing and features vary by user type and compliance exposure.
+
+---
+
+## 🖥️ MVP Pages
+
+### Public (Lite Mode)
+
+* Landing Page
+* Lite Tax Calculator
+* Lite Results Page
+
+### Authenticated
+
+* Authentication Page
+* Mode Selection / Upgrade Page
+* User Dashboard
+* Profile & Identity Page
+* Tax Breakdown Page
+* History & Tracking Page
+* Documents & Exports Page
+* Settings & Security Page
+
+---
+
+## ⚙️ Core Features
+
+* Progressive mode-based access control
+* Single tax rule engine (2025 & 2026 laws)
+* Feature gating via entitlements
+* UX-driven upgrade prompts
+* Compliance health indicators
+* Simulated NRS readiness (mocked APIs)
+
+---
+
+## 🧱 Assumed Technical Architecture
+
+### Frontend
+
+* React / React Native
+* TailwindCSS / Styled Components
+* Framer Motion (animations & transitions)
+
+### Backend (Conceptual for MVP)
+
+* Node.js API layer
+* Stateless tax rule engine
+* Feature flag & entitlement service
+* Identity & compliance service (Secure modes)
+* Audit & logging service (Secure+)
+
+> ⚠️ Note: Backend services are mocked in this MVP for demonstration purposes.
+
+---
+
+## 🔐 Security Philosophy
+
+Security is **not forced upfront**.
+
+Instead:
+
+* Lite Mode avoids all sensitive data
+* Secure Mode activates identity & compliance services
+* Secure+ enables audit, logging, and historical persistence
+
+This minimizes risk while maximizing adoption.
+
+---
+
+## 📈 Monetization Strategy
+
+* Free Lite Mode for user acquisition
+* Paid Secure tiers driven by:
+
+  * Data persistence needs
+  * Compliance deadlines
+  * Export & audit requirements
+* Pricing varies by:
+
+  * Individual
+  * SME
+  * Corporate scale
+
+---
+
+## 🚀 MVP Status
+
+* ✅ UI/UX complete
+* ✅ Business logic defined
+* ✅ Mode & pricing strategy finalized
+* ⏳ Live NRS integration (Post-MVP)
+* ⏳ Payment gateway integration (Post-MVP)
+
+---
+
+## 🔮 Future Enhancements
+
+* Live NRS Tax ID verification
+* Mandatory e-Invoicing (QR & CSID)
+* Employer payroll upload & H1 automation
+* Multi-language AI narration
+* White-label for accounting firms
+
+---
+
+## 🏢 Built For
+
+**Simplex Business Solutions**
+Positioned as a long-term compliance technology partner for Nigeria’s evolving tax landscape.
