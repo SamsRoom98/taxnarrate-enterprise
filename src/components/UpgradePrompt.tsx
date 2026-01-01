@@ -1,3 +1,4 @@
+import React from 'react';
 import { ArrowRight, Shield, TrendingUp, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -38,13 +39,14 @@ const upgradeFeatures: Record<UserMode, { title: string; features: string[] }> =
   },
 };
 
-export function UpgradePrompt({ targetMode = 'secure', variant = 'card', className }: UpgradePromptProps) {
-  const { updateMode, userProfile } = useTax();
-  const config = upgradeFeatures[targetMode];
+export const UpgradePrompt = React.forwardRef<HTMLDivElement, UpgradePromptProps>(
+  function UpgradePrompt({ targetMode = 'secure', variant = 'card', className }, ref) {
+    const { updateMode, userProfile } = useTax();
+    const config = upgradeFeatures[targetMode];
 
-  if (variant === 'banner') {
-    return (
-      <div className={`rounded-xl bg-gradient-to-r from-warning/20 via-warning/10 to-transparent border border-warning/30 p-4 ${className}`}>
+    if (variant === 'banner') {
+      return (
+        <div ref={ref} className={`rounded-xl bg-gradient-to-r from-warning/20 via-warning/10 to-transparent border border-warning/30 p-4 ${className}`}>
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-warning/20">
@@ -62,13 +64,13 @@ export function UpgradePrompt({ targetMode = 'secure', variant = 'card', classNa
             <ArrowRight className="h-4 w-4 ml-2" />
           </Button>
         </div>
-      </div>
-    );
-  }
+        </div>
+      );
+    }
 
-  if (variant === 'inline') {
-    return (
-      <div className={`flex items-center gap-3 rounded-lg bg-muted/50 p-3 ${className}`}>
+    if (variant === 'inline') {
+      return (
+        <div ref={ref} className={`flex items-center gap-3 rounded-lg bg-muted/50 p-3 ${className}`}>
         <Shield className="h-5 w-5 text-success" />
         <span className="text-sm text-muted-foreground flex-1">
           Unlock full compliance features
@@ -76,12 +78,12 @@ export function UpgradePrompt({ targetMode = 'secure', variant = 'card', classNa
         <Button variant="upgrade" size="sm" onClick={() => updateMode(targetMode)}>
           Upgrade
         </Button>
-      </div>
-    );
-  }
+        </div>
+      );
+    }
 
-  return (
-    <Card variant="elevated" className={className}>
+    return (
+      <Card ref={ref} variant="elevated" className={className}>
       <CardHeader className="pb-4">
         <div className="flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-success/10">
@@ -110,7 +112,8 @@ export function UpgradePrompt({ targetMode = 'secure', variant = 'card', classNa
           {config.title}
           <ArrowRight className="h-4 w-4 ml-2" />
         </Button>
-      </CardContent>
-    </Card>
-  );
-}
+        </CardContent>
+      </Card>
+    );
+  }
+);
