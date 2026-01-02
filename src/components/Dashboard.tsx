@@ -8,6 +8,7 @@ import { FeatureCard } from '@/components/FeatureCard';
 import { UpgradePrompt } from '@/components/UpgradePrompt';
 import { ReadinessBanner } from '@/components/ReadinessBanner';
 import { StatCard } from '@/components/StatCard';
+import { NarrationAssistant } from '@/components/narration/NarrationAssistant';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -112,8 +113,11 @@ export function Dashboard() {
             {/* Tax Calculator */}
             <TaxCalculator className="animate-fade-up" />
 
+            {/* Narration Assistant - Secure/Secure+ only */}
+            <NarrationAssistant className="animate-fade-up delay-100" />
+
             {/* Tax Comparison */}
-            <TaxComparison income={2500000} className="animate-fade-up delay-100" />
+            <TaxComparison income={2500000} className="animate-fade-up delay-200" />
 
             {/* Personal Features */}
             {userProfile.taxMode === 'personal' && (
@@ -123,7 +127,7 @@ export function Dashboard() {
                   description="Calculate your housing allowance deduction"
                   requiredMode="secure"
                   value="₦500,000 max cap"
-                  className="animate-fade-up delay-200"
+                  className="animate-fade-up delay-300"
                 >
                   <p className="text-sm text-muted-foreground">
                     Up to ₦500,000 annual rent relief under 2026 law
@@ -135,7 +139,7 @@ export function Dashboard() {
                   description="Track your PAYE across years"
                   requiredMode="secure-plus"
                   isPremium
-                  className="animate-fade-up delay-300"
+                  className="animate-fade-up delay-400"
                 >
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
