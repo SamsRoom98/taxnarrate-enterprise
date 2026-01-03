@@ -1,4 +1,5 @@
 import { useTax } from '@/contexts/TaxContext';
+import { usePayment } from '@/contexts/PaymentContext';
 import { Header } from '@/components/Header';
 import { ModeSwitcher } from '@/components/ModeSwitcher';
 import { ComplianceCard } from '@/components/ComplianceCard';
@@ -9,6 +10,11 @@ import { UpgradePrompt } from '@/components/UpgradePrompt';
 import { ReadinessBanner } from '@/components/ReadinessBanner';
 import { StatCard } from '@/components/StatCard';
 import { NarrationAssistant } from '@/components/narration/NarrationAssistant';
+import { TaxPaymentCard } from '@/components/payment/TaxPaymentCard';
+import { UpgradeCTABanner } from '@/components/payment/UpgradeCTABanner';
+import { PaymentHistoryCard } from '@/components/payment/PaymentHistoryCard';
+import { TaxClearanceCard } from '@/components/payment/TaxClearanceCard';
+import { OverdueTaxChecker } from '@/components/payment/OverdueTaxChecker';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -24,9 +30,26 @@ import {
 } from 'lucide-react';
 
 export function Dashboard() {
-  const { userProfile, complianceStatus, updateTaxMode, updateMode } = useTax();
+  const { userProfile, complianceStatus, updateTaxMode } = useTax();
+  const { openSubscriptionModal, paymentState } = usePayment();
 
-  const readinessScore = complianceStatus.overallScore;
+  const readinessScore = paymentState.taxPaidFor2026 ? 100 : complianceStatus.overallScore;
+  const isBusinessTax = userProfile.taxMode === 'business';
+
+  // Sample tax breakdown for the payment card
+  const sampleIncome = 2500000;
+  const pensionDeduction = Math.round(sampleIncome * 0.08);
+  const rentRelief = 500000;
+  const taxableIncome = sampleIncome - pensionDeduction - rentRelief;
+  const taxAmount = 344000; // Calculated tax
+
+  const taxBreakdown = {
+    grossIncome: sampleIncome,
+    pensionDeduction,
+    rentRelief: isBusinessTax ? 0 : rentRelief,
+    taxableIncome,
+    taxAmount,
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -60,7 +83,7 @@ export function Dashboard() {
                   </p>
                 </div>
               </div>
-              <Button variant="premium" size="sm" onClick={() => updateMode('secure-plus')}>
+              <Button variant="premium" size="sm" onClick={() => openSubscriptionModal('secure-plus')}>
                 <Sparkles className="h-4 w-4 mr-2" />
                 Upgrade to Secure+
               </Button>
@@ -81,7 +104,7 @@ export function Dashboard() {
           />
           <StatCard
             title="Annual Tax (2026)"
-            value={344000}
+            value={taxAmount}
             prefix="₦"
             icon={Wallet}
             variant="default"
@@ -113,11 +136,18 @@ export function Dashboard() {
             {/* Tax Calculator */}
             <TaxCalculator className="animate-fade-up" />
 
+            {/* Tax Payment Card */}
+            <TaxPaymentCard 
+              taxAmount={taxAmount} 
+              taxBreakdown={taxBreakdown}
+              className="animate-fade-up delay-100"
+            />
+
             {/* Narration Assistant - Secure/Secure+ only */}
-            <NarrationAssistant className="animate-fade-up delay-100" />
+            <NarrationAssistant className="animate-fade-up delay-200" />
 
             {/* Tax Comparison */}
-            <TaxComparison income={2500000} className="animate-fade-up delay-200" />
+            <TaxComparison income={sampleIncome} className="animate-fade-up delay-300" />
 
             {/* Personal Features */}
             {userProfile.taxMode === 'personal' && (
@@ -127,7 +157,7 @@ export function Dashboard() {
                   description="Calculate your housing allowance deduction"
                   requiredMode="secure"
                   value="₦500,000 max cap"
-                  className="animate-fade-up delay-300"
+                  className="animate-fade-up delay-400"
                 >
                   <p className="text-sm text-muted-foreground">
                     Up to ₦500,000 annual rent relief under 2026 law
@@ -139,7 +169,7 @@ export function Dashboard() {
                   description="Track your PAYE across years"
                   requiredMode="secure-plus"
                   isPremium
-                  className="animate-fade-up delay-400"
+                  className="animate-fade-up delay-500"
                 >
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
@@ -166,7 +196,7 @@ export function Dashboard() {
                   title="E-Invoice Generator"
                   description="Generate compliant e-invoices with QR codes"
                   requiredMode="secure"
-                  className="animate-fade-up delay-200"
+                  className="animate-fade-up delay-300"
                 >
                   <div className="flex items-center gap-3">
                     <Receipt className="h-8 w-8 text-muted-foreground" />
@@ -182,7 +212,7 @@ export function Dashboard() {
                   description="Downloadable compliance reports"
                   requiredMode="secure-plus"
                   isPremium
-                  className="animate-fade-up delay-300"
+                  className="animate-fade-up delay-400"
                 >
                   <div className="flex items-center gap-3">
                     <FileText className="h-8 w-8 text-muted-foreground" />
@@ -201,17 +231,28 @@ export function Dashboard() {
             {/* Compliance Status */}
             <ComplianceCard status={complianceStatus} className="animate-fade-up" />
 
+            {/* Overdue Tax Checker - Secure/Secure+ only */}
+            {userProfile.mode !== 'lite' && (
+              <OverdueTaxChecker className="animate-fade-up delay-100" />
+            )}
+
+            {/* Tax Clearance Certificate - Secure+ only */}
+            <TaxClearanceCard className="animate-fade-up delay-200" />
+
+            {/* Payment History - Secure+ only */}
+            <PaymentHistoryCard className="animate-fade-up delay-300" />
+
             {/* Upgrade Prompt */}
             {userProfile.mode === 'lite' && (
-              <UpgradePrompt targetMode="secure" className="animate-fade-up delay-100" />
+              <UpgradePrompt targetMode="secure" className="animate-fade-up delay-400" />
             )}
 
             {userProfile.mode === 'secure' && (
-              <UpgradePrompt targetMode="secure-plus" className="animate-fade-up delay-100" />
+              <UpgradePrompt targetMode="secure-plus" className="animate-fade-up delay-400" />
             )}
 
             {/* Quick Actions */}
-            <Card variant="elevated" className="animate-fade-up delay-200">
+            <Card variant="elevated" className="animate-fade-up delay-500">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base">Quick Actions</CardTitle>
               </CardHeader>
@@ -235,10 +276,10 @@ export function Dashboard() {
           </div>
         </div>
 
-        {/* Risk Warning Banner */}
+        {/* Upgrade CTA Banner */}
         {userProfile.mode !== 'secure-plus' && (
           <div className="mt-8 animate-fade-up">
-            <UpgradePrompt targetMode="secure-plus" variant="banner" />
+            <UpgradeCTABanner />
           </div>
         )}
       </main>
