@@ -1,6 +1,9 @@
 import { TaxProvider, useTax } from '@/contexts/TaxContext';
+import { PaymentProvider } from '@/contexts/PaymentContext';
 import { Onboarding } from '@/components/Onboarding';
 import { Dashboard } from '@/components/Dashboard';
+import { SubscriptionPaymentModal } from '@/components/payment/SubscriptionPaymentModal';
+import { TaxPaymentModal } from '@/components/payment/TaxPaymentModal';
 
 function TaxApp() {
   const { userProfile } = useTax();
@@ -9,13 +12,21 @@ function TaxApp() {
     return <Onboarding />;
   }
 
-  return <Dashboard />;
+  return (
+    <>
+      <Dashboard />
+      <SubscriptionPaymentModal />
+      <TaxPaymentModal />
+    </>
+  );
 }
 
 const Index = () => {
   return (
     <TaxProvider>
-      <TaxApp />
+      <PaymentProvider>
+        <TaxApp />
+      </PaymentProvider>
     </TaxProvider>
   );
 };

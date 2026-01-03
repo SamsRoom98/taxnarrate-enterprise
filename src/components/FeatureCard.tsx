@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { UserMode } from '@/types/tax';
 import { useTax } from '@/contexts/TaxContext';
+import { usePayment } from '@/contexts/PaymentContext';
+import { getSubscriptionPrice, formatCurrency } from '@/types/payment';
 import { cn } from '@/lib/utils';
 
 interface FeatureCardProps {
@@ -31,8 +33,19 @@ export function FeatureCard({
   className,
   isPremium,
 }: FeatureCardProps) {
-  const { isFeatureLocked, updateMode } = useTax();
+  const { isFeatureLocked, userProfile } = useTax();
+  const { openSubscriptionModal } = usePayment();
   const isLocked = isFeatureLocked(requiredMode);
+
+  const handleUpgrade = () => {
+    if (requiredMode !== 'lite') {
+      openSubscriptionModal(requiredMode as Exclude<UserMode, 'lite'>);
+    }
+  };
+
+  const price = requiredMode !== 'lite' 
+    ? getSubscriptionPrice(userProfile.accountType, requiredMode as Exclude<UserMode, 'lite'>)
+    : 0;
 
   return (
     <Card
@@ -78,15 +91,15 @@ export function FeatureCard({
             
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/80 backdrop-blur-[2px] rounded-lg">
               <p className="text-sm text-muted-foreground mb-3 text-center">
-                Available in {modeLabels[requiredMode]}
+                Unlock in {modeLabels[requiredMode]}
               </p>
               <Button
                 variant="upgrade"
                 size="sm"
-                onClick={() => updateMode(requiredMode)}
+                onClick={handleUpgrade}
                 className="gap-2"
               >
-                Upgrade
+                Upgrade - {formatCurrency(price)}/yr
                 <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             </div>
