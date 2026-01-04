@@ -15,6 +15,7 @@ import { UpgradeCTABanner } from '@/components/payment/UpgradeCTABanner';
 import { PaymentHistoryCard } from '@/components/payment/PaymentHistoryCard';
 import { TaxClearanceCard } from '@/components/payment/TaxClearanceCard';
 import { OverdueTaxChecker } from '@/components/payment/OverdueTaxChecker';
+import { EmployeePayrollCard } from '@/components/payroll/EmployeePayrollCard';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -145,6 +146,9 @@ export function Dashboard() {
 
             {/* Narration Assistant - Secure/Secure+ only */}
             <NarrationAssistant className="animate-fade-up delay-200" />
+
+            {/* Employee Payroll - Business only */}
+            <EmployeePayrollCard className="animate-fade-up delay-250" />
 
             {/* Tax Comparison */}
             <TaxComparison income={sampleIncome} className="animate-fade-up delay-300" />
